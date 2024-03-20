@@ -8,12 +8,13 @@ Copyright 2024 Simon Jordan
 
 ### This Python-based project contains fundamental curve analysis tools to inspect polynomial functions by using the Sympy library.
 
-In "curve_analysis.py," three functions are provided to determine the real roots, turning points, and inflection points of polynomial functions.
+In "curve_analysis.py", three functions are provided to determine the real roots, turning points, and inflection points of polynomial functions.
 These functions are essential for gaining insights into the behavior of polynomial functions, which are crucial for various applications in mathematics, engineering, and science.
 Therefore, the coefficients are given as a list for the function parameters in descending order.
-Example for the function "f(x) = k_3 * x ** 3 + k_2 * x ** 2 + k_1 * x + k_0" with the regarding coefficients = [k_3, k_2, k_1, k_0]
+Example for the function "f(x) = k_3 * x ** 3 + k_2 * x ** 2 + k_1 * x + k_0" with the regarding coefficients = [k_3, k_2, k_1, k_0]:
 
 $$ f(x) = k_3 x^3 + k_2 x^2 + k_1 x + k_0 $$
+
 $$ coefficients = [k_3, k_2, k_1, k_0] $$
 
 * #### compute_real_roots:

@@ -23,10 +23,23 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
     
+    - uses: chartboost/ruff-action@v1
+    
     - name: Format code with Ruff
-      run: ruff format
+      run: |
+        ruff format
+        echo "::set-output name=formatted::$(git status --porcelain)"
       
     - name: Check code with Ruff and fix issues
-      run: ruff check --fix
-      
-    - uses: chartboost/ruff-action@v1
+      run: |
+        ruff check --fix
+        echo "::set-output name=fixed::$(git status --porcelain)"
+
+    - name: Commit changes
+      if: steps.ruff.outputs.formatted != '' || steps.ruff.outputs.fixed != ''
+      run: |
+        git config --local user.email "e11912008@student.tuwien.ac.at"
+        git config --local user.name "Simon Jordan"
+        git add .
+        git commit -m "Ruff formatted/fixed files"
+        git push

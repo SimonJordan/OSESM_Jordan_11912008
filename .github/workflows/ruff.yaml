@@ -33,7 +33,7 @@ jobs:
     - name: Check code with Ruff and fix issues
       id: check
       run: |
-        if ! ruff check --fix; then
+        if ruff check --fix | grep -q "error"; then
           echo "FIXED=true" >> $GITHUB_ENV
         fi
 
@@ -79,3 +79,4 @@ jobs:
         git add .
         git commit -m "Ruff fixed file(s)"
         git push
+          

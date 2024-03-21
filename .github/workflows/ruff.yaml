@@ -24,19 +24,22 @@ jobs:
       run: pip install -r requirements.txt
     
     - name: Format code with Ruff
+      id: format
       run: |
         ruff format
-        echo "::set-output name=formatted::$(git status --porcelain)"
+        echo "::set-env name=FORMATTED::$(git status --porcelain | grep -q '^ M' && echo true || echo false)"
       
     - name: Check code with Ruff and fix issues
+      id: check
       run: |
         ruff check --fix
-        echo "::set-output name=fixed::$(git status --porcelain)"
+        echo "::set-env name=FIXED::$(git status --porcelain | grep -q '^ M' && echo true || echo false)"
+
     
     - uses: chartboost/ruff-action@v1
 
     - name: Commit changes
-      if: steps.ruff.outputs.formatted != '' || steps.ruff.outputs.fixed != ''
+      if: steps.format.outputs.FORMATTED == 'true' || steps.check.outputs.FIXED == 'true'
       run: |
         git config --local user.email "e11912008@student.tuwien.ac.at"
         git config --local user.name "Simon Jordan"

@@ -48,7 +48,8 @@ jobs:
     - name: Print environment variables
       run: |
         echo "Environment variables:"
-        env
+        echo "FORMATTED=$FORMATTED"
+        echo "FIXED=$FIXED"
         
     - name: Commit changes if formatted and fixed
       if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' }}

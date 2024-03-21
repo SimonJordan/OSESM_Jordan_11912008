@@ -45,6 +45,10 @@ jobs:
 #        git add .
 #        git commit -m "Ruff formatted/fixed file(s)"
 #        git push
+    - name: Print environment variables
+      run: |
+        echo "Environment variables:"
+        env
         
     - name: Commit changes if formatted and fixed
       if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' }}

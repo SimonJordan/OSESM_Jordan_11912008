@@ -1,6 +1,8 @@
-import os
 import sympy as sp
+
 x = sp.Symbol("x")
+
+
 def compute_real_roots(coefficients):
     """This function calculates the real roots of a polynomial function."""
     real_roots = []

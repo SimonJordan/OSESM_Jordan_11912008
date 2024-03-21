@@ -14,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v4
@@ -39,6 +41,12 @@ jobs:
 
     - uses: chartboost/ruff-action@v1
 
+    - name: Print environment variables
+      run: |
+        echo "Environment variables:"
+        echo "FORMATTED=$FORMATTED"
+        echo "FIXED=$FIXED"
+        
 #    - name: Commit changes if formatted/fixed
 #      if: env.FORMATTED == 'true' || env.FIXED == 'true'
 #      run: |
@@ -46,13 +54,8 @@ jobs:
 #        git config --local user.name "Simon Jordan"
 #        git add .
 #        git commit -m "Ruff formatted/fixed file(s)"
-#        git push
-    - name: Print environment variables
-      run: |
-        echo "Environment variables:"
-        echo "FORMATTED=$FORMATTED"
-        echo "FIXED=$FIXED"
-        
+#        git push        
+
     - name: Commit changes if formatted and fixed
       if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' }}
       run: |
@@ -61,7 +64,7 @@ jobs:
         git add .
         git commit -m "Ruff formatted and fixed file(s)"
         git push
-    
+
     - name: Commit changes if only formatted
       if: ${{ env.FORMATTED == 'true' && env.FIXED != 'true' }}
       run: |
@@ -70,7 +73,7 @@ jobs:
         git add .
         git commit -m "Ruff formatted file(s)"
         git push
-    
+
     - name: Commit changes if only fixed
       if: ${{ env.FORMATTED != 'true' && env.FIXED == 'true' }}
       run: |
@@ -79,9 +82,8 @@ jobs:
         git add .
         git commit -m "Ruff fixed file(s)"
         git push
-        
+
     - name: Reset GITHUB_ENV
       run: |
           echo "FORMATTED=false" >> $GITHUB_ENV
           echo "FIXED=false" >> $GITHUB_ENV
-          

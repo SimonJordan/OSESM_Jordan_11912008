@@ -27,19 +27,19 @@ jobs:
       id: format
       run: |
         ruff format
-        echo "::set-env name=FORMATTED::$(git status --porcelain | grep -q '^ M' && echo true || echo false)"
+        echo "FORMATTED=true" >> $GITHUB_ENV
       
     - name: Check code with Ruff and fix issues
       id: check
       run: |
         ruff check --fix
-        echo "::set-env name=FIXED::$(git status --porcelain | grep -q '^ M' && echo true || echo false)"
+        echo "FIXED=true" >> $GITHUB_ENV
 
     
     - uses: chartboost/ruff-action@v1
 
     - name: Commit changes
-      if: steps.format.outputs.FORMATTED == 'true' || steps.check.outputs.FIXED == 'true'
+      if: env.FORMATTED == 'true' || env.FIXED == 'true'
       run: |
         git config --local user.email "e11912008@student.tuwien.ac.at"
         git config --local user.name "Simon Jordan"

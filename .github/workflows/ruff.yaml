@@ -8,14 +8,12 @@ on:
   pull_request: {}
 
 jobs:
-  ruff:
-
+  ruff_push:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v4
@@ -88,7 +86,82 @@ jobs:
         git commit -m "Ruff fixed file(s)"
         git push
 
-    - name: Reset GITHUB_ENV
-      run: |
-          echo "FORMATTED=false" >> $GITHUB_ENV
-          echo "FIXED=false" >> $GITHUB_ENV
+   ruff_pull_request:
+     if: github.event_name == 'pull_request'
+     runs-on: ubuntu-latest
+
+     steps:
+     - uses: actions/checkout@v4
+       with:
+         ref: ${{ github.event.pull_request.head.ref }}
+
+     - name: Set up Python 3.11
+       uses: actions/setup-python@v4
+       with:
+         python-version: 3.11
+
+     - name: Install dependencies
+       run: pip install -r requirements.txt
+
+     - name: Set GITHUB_ENV
+       run: |
+           echo "FORMATTED=false" >> $GITHUB_ENV
+           echo "FIXED=false" >> $GITHUB_ENV
+     
+     - name: Format code with Ruff
+       id: format
+       run: |
+         if ruff format | grep -q "reformatted"; then
+           echo "FORMATTED=true" >> $GITHUB_ENV
+         fi
+       
+     - name: Check code with Ruff and fix issues
+       id: check
+       run: |
+         if ruff check --fix | grep -q "error"; then
+           echo "FIXED=true" >> $GITHUB_ENV
+         fi
+
+     - uses: chartboost/ruff-action@v1
+
+     - name: Print environment variables
+       run: |
+         echo "Environment variables:"
+         echo "FORMATTED=$FORMATTED"
+         echo "FIXED=$FIXED"
+         
+ #    - name: Commit changes if formatted/fixed
+ #      if: env.FORMATTED == 'true' || env.FIXED == 'true'
+ #      run: |
+ #        git config --local user.email "e11912008@student.tuwien.ac.at"
+ #        git config --local user.name "Simon Jordan"
+ #        git add .
+ #        git commit -m "Ruff formatted/fixed file(s)"
+ #        git push        
+
+     - name: Commit changes if formatted and fixed
+       if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' }}
+       run: |
+         git config --local user.email "e11912008@student.tuwien.ac.at"
+         git config --local user.name "Simon Jordan"
+         git add .
+         git commit -m "Ruff formatted and fixed file(s)"
+         git push
+
+     - name: Commit changes if only formatted
+       if: ${{ env.FORMATTED == 'true' && env.FIXED != 'true' }}
+       run: |
+         git config --local user.email "e11912008@student.tuwien.ac.at"
+         git config --local user.name "Simon Jordan"
+         git add .
+         git commit -m "Ruff formatted file(s)"
+         git push
+
+     - name: Commit changes if only fixed
+       if: ${{ env.FORMATTED != 'true' && env.FIXED == 'true' }}
+       run: |
+         git config --local user.email "e11912008@student.tuwien.ac.at"
+         git config --local user.name "Simon Jordan"
+         git add .
+         git commit -m "Ruff fixed file(s)"
+         git push

@@ -26,7 +26,7 @@ jobs:
     - name: Format code with Ruff
       id: format
       run: |
-        if ! ruff format; then
+        if ruff format | grep -q "reformatted"; then
           echo "FORMATTED=true" >> $GITHUB_ENV
         fi
       
@@ -79,4 +79,9 @@ jobs:
         git add .
         git commit -m "Ruff fixed file(s)"
         git push
+        
+    - name: Reset GITHUB_ENV
+      run: |
+          echo "FORMATTED=false" >> $GITHUB_ENV
+          echo "FIXED=false" >> $GITHUB_ENV
           

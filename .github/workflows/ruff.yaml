@@ -26,14 +26,14 @@ jobs:
     - name: Format code with Ruff
       id: format
       run: |
-        if ruff format; then
+        if ! ruff format; then
           echo "FORMATTED=true" >> $GITHUB_ENV
         fi
       
     - name: Check code with Ruff and fix issues
       id: check
       run: |
-        if ruff check --fix; then
+        if ! ruff check --fix; then
           echo "FIXED=true" >> $GITHUB_ENV
         fi
 

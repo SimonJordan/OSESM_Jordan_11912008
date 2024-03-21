@@ -1,4 +1,3 @@
-import os
 import sympy as sp
 
 x = sp.Symbol("x")

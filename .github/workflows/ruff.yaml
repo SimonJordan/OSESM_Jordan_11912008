@@ -53,15 +53,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Commit changes if formatted and fixed
-      run: |
-        git config --local user.email "e11912008@student.tuwien.ac.at"
-        git config --local user.name "Simon Jordan"
-        git add .
-        git commit -m "Ruff formatted and fixed file(s)"
-        git push
+      - name: Commit changes if formatted and fixed
+        run: |
+          git config --local user.email "e11912008@student.tuwien.ac.at"
+          git config --local user.name "Simon Jordan"
+          git add .
+          git commit -m "Ruff formatted and fixed file(s)"
+          git push
 
   commit_formatted:
     rules:
@@ -70,15 +70,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Commit changes if only formatted
-      run: |
-        git config --local user.email "e11912008@student.tuwien.ac.at"
-        git config --local user.name "Simon Jordan"
-        git add .
-        git commit -m "Ruff formatted file(s)"
-        git push
+      - name: Commit changes if only formatted
+        run: |
+          git config --local user.email "e11912008@student.tuwien.ac.at"
+          git config --local user.name "Simon Jordan"
+          git add .
+          git commit -m "Ruff formatted file(s)"
+          git push
 
   commit_fixed:
     rules:
@@ -87,12 +87,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Commit changes if only fixed
-      run: |
-        git config --local user.email "e11912008@student.tuwien.ac.at"
-        git config --local user.name "Simon Jordan"
-        git add .
-        git commit -m "Ruff fixed file(s)"
-        git push
+      - name: Commit changes if only fixed
+        run: |
+          git config --local user.email "e11912008@student.tuwien.ac.at"
+          git config --local user.name "Simon Jordan"
+          git add .
+          git commit -m "Ruff fixed file(s)"
+          git push

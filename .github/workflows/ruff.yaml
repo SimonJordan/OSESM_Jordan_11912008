@@ -60,7 +60,7 @@ jobs:
 #        git push        
 
     - name: Commit changes if formatted and fixed
-      if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' }}
+      if: ${{ env.FORMATTED == 'true' && env.FIXED == 'true' && github.event_name == 'push' }}
       run: |
         git config --local user.email "e11912008@student.tuwien.ac.at"
         git config --local user.name "Simon Jordan"
@@ -69,7 +69,7 @@ jobs:
         git push
 
     - name: Commit changes if only formatted
-      if: ${{ env.FORMATTED == 'true' && env.FIXED != 'true' }}
+      if: ${{ env.FORMATTED == 'true' && env.FIXED != 'true' && github.event_name == 'push' }}
       run: |
         git config --local user.email "e11912008@student.tuwien.ac.at"
         git config --local user.name "Simon Jordan"
@@ -78,7 +78,7 @@ jobs:
         git push
 
     - name: Commit changes if only fixed
-      if: ${{ env.FORMATTED != 'true' && env.FIXED == 'true' }}
+      if: ${{ env.FORMATTED != 'true' && env.FIXED == 'true' && github.event_name == 'push' }}
       run: |
         git config --local user.email "e11912008@student.tuwien.ac.at"
         git config --local user.name "Simon Jordan"

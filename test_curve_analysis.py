@@ -1,5 +1,5 @@
 import curve_analysis as ca
-import os
+
 
 def test_compute_real_roots():
     assert ca.compute_real_roots([1, -3, 2]) == [1, 2]

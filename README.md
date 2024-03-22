@@ -2,7 +2,7 @@
 
 This is the repository for the Lecture 370.062 Open Source Energy System Modeling of Simon Jordan (11912008).
 In this project, a Python-based program is provided with fundamental curve analysis tools to inspect polynomial functions by using the Sympy library.
-Furthermore, a Python-based test program is available to run automatic tests for a push and pull_request.
+Furthermore, a Python-based test program is available to run automatic tests for push and pull_request.
 Additionally, for each push, ruff is executed to fix and format the programmed files automatically and will terminate with a commit.
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-black)](https://github.com/SimonJordan/OSESM_Jordan_11912008/blob/main/LICENSE)

@@ -1,6 +1,8 @@
 import sympy as sp
-import os
+
 x = sp.Symbol("x")
+
+
 def compute_real_roots(coefficients):
     """This function calculates the real roots of a polynomial function."""
     real_roots = []
@@ -8,8 +10,10 @@ def compute_real_roots(coefficients):
     for root, order in roots.items():  # filter real roots
         if root.is_real:
             real_roots.append(root)
-    
+
     return sorted(real_roots)
+
+
 def compute_turning_points(coefficients):
     """This function calculates the turning points of a polynomial function."""
 
@@ -18,6 +22,8 @@ def compute_turning_points(coefficients):
     turning_points = sp.solve(f_1, x)  # roots of the 1. derivative
 
     return sorted(turning_points)
+
+
 def compute_inflection_points(coefficients):
     """This function calculates the inflection points of a polynomial function."""
 

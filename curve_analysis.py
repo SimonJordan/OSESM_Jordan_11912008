@@ -5,6 +5,7 @@ x = sp.Symbol("x")
 
 def compute_real_roots(coefficients):
     """This function calculates the real roots of a polynomial function."""
+    
     real_roots = []
     roots = sp.roots(coefficients)  # roots may include complex ones
     for root, order in roots.items():  # filter real roots

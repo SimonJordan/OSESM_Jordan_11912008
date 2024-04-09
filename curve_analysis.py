@@ -12,13 +12,15 @@ def compute_real_roots(coefficients):
         if root.is_real:
             real_roots.append(root)
 
-    return sorted(real_roots)
+    return sorted(roots)
 
 
 def compute_turning_points(coefficients):
     """This function calculates the turning points of a polynomial function."""
 
-    f = sum(k * x**i for i, k in enumerate(reversed(coefficients)))  # create function
+    f = sum(
+        k * x ** (i + 1) for i, k in enumerate(reversed(coefficients))
+    )  # create function
     f_1 = sp.diff(f, x)  # 1. derivative of the function
     turning_points = sp.solve(f_1, x)  # roots of the 1. derivative
 

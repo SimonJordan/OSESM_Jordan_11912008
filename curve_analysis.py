@@ -1,5 +1,4 @@
 import sympy as sp
-import cmath as cm
 
 x = sp.Symbol("x")
 
@@ -19,7 +18,9 @@ def compute_real_roots(coefficients):
 def compute_turning_points(coefficients):
     """This function calculates the turning points of a polynomial function."""
 
-    f = sum(k * x**(i+1) for i, k in enumerate(reversed(coefficients)))  # create function
+    f = sum(
+        k * x ** (i + 1) for i, k in enumerate(reversed(coefficients))
+    )  # create function
     f_1 = sp.diff(f, x)  # 1. derivative of the function
     turning_points = sp.solve(f_1, x)  # roots of the 1. derivative
 

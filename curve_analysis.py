@@ -1,4 +1,5 @@
 import sympy as sp
+import cmath as cm
 
 x = sp.Symbol("x")
 
@@ -12,7 +13,7 @@ def compute_real_roots(coefficients):
         if root.is_real:
             real_roots.append(root)
 
-    return sorted(real_roots)
+    return sorted(roots)
 
 
 def compute_turning_points(coefficients):
